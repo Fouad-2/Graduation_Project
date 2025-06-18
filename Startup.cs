@@ -27,8 +27,10 @@ namespace GradFinalProject
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("SqlCon")));
+            var connectionString = Environment.GetEnvironmentVariable("SQL_CONN");
+
+            services.AddDbContext<AppDbContext>(options =>options.UseSqlServer(connectionString));
+            services.AddDbContext<AppDbContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("SqlCon")));
             services.AddSession();
             services.AddMvc(x => x.EnableEndpointRouting = false);
             services.AddScoped<IRepository<Customer>, CustomerRepository>();

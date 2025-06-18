@@ -391,3 +391,5 @@ D:\Sana'a\GradFinalProject\GradFinalProject\obj\Debug\net5.0\GradFinalProject.pd
 D:\Sana'a\GradFinalProject\GradFinalProject\obj\Debug\net5.0\GradFinalProject.genruntimeconfig.cache
 D:\Sana'a\GradFinalProject\GradFinalProject\obj\Debug\net5.0\ref\GradFinalProject.dll
 D:\Sana'a\GradFinalProject\GradFinalProject\obj\Debug\net5.0\GradFinalProject.sourcelink.json
+D:\Sana'a\GradFinalProject\GradFinalProject\bin\Debug\net5.0\DotNetEnv.dll
+D:\Sana'a\GradFinalProject\GradFinalProject\bin\Debug\net5.0\Sprache.dll

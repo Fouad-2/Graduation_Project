@@ -14,7 +14,8 @@ public class PaymentController : Controller
     {
         _orderRepo = orderRepo;
         _serviceRepo = serviceRepo;
-        // secret key تبعك
+        // Load API key from environment variable
+        Stripe.StripeConfiguration.ApiKey = Environment.GetEnvironmentVariable("STRIPE_SECRET_KEY");
     }
 
     [HttpPost]
