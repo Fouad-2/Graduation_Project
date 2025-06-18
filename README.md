@@ -41,23 +41,19 @@ The platform allows customers to browse services, place orders, and interact wit
 ---
 
 ## 📁 Project Structure
-
 San3a-Project/
-├── Controllers/          # Handles user requests and business logic
-├── Models/               # Entity models for database
-├── ViewModels/           # Models used to pass data between views and controllers
-├── Views/                # Razor views (UI pages)
-├── Migrations/           # EF Core migration files for database schema
-├── wwwroot/              # Static files
-│   ├── css/
-│   ├── js/
-│   └── images/
-├── Data/                 # DbContext and data seeding
-├── Repositories/         # Data access layer (CRUD operations)
-├── appsettings.json      # Configuration file
-├── Program.cs            # Application entry point
-├── Startup.cs            # Application configuration (middleware, services)
-└── README.md
+├── Controllers/ # Handles user requests and business logic
+├── Models/ # Entity models for database
+├── ViewModels/ # Data models for passing info between views/controllers
+├── Views/ # Razor views (UI pages)
+├── Migrations/ # EF Core migrations
+├── wwwroot/ # Static files (CSS, JS, images)
+├── Data/ # DbContext and data configuration
+├── Repositories/ # Interfaces and repository classes
+├── appsettings.json # Project configuration file
+├── Program.cs # App entry point
+├── Startup.cs # Middleware and service configuration
+└── README.md # Project documentation
 ---
 
 ## 🚀 Getting Started
