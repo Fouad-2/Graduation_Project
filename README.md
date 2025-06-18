@@ -52,8 +52,12 @@ The platform allows customers to browse services, place orders, and interact wit
 
 ## 📌 Notes
 
-- The front-end template was created by team members and adapted to match the back-end.
-- This project was developed by **Fouad Alkhateb** as a graduation requirement in **Software Engineering** at **Hashemite University**, Jordan.
+- The front-end template was originally created by team members,  
+  but the full integration and adaptation with the back-end functionality  
+  was done entirely by **Fouad Alkhateeb**.
+- This project was developed and implemented by **Fouad Alkhateeb**  
+  as a graduation project for the **Software Engineering** program  
+  at **Hashemite University**, Jordan.
 - Graduation Date (expected): **September 2025**
 
 ---
