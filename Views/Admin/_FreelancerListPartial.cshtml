@@ -1,0 +1,31 @@
+﻿@model IEnumerable<GradFinalProject.Models.Freelancer>
+
+<table class="table table-bordered mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Freelancers List</h3>
+        <button onclick="hideCustomersTable()" class="btn btn-danger btn-sm">
+            <i class="fas fa-times"></i> Close
+        </button>
+    </div>
+    <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Specialization</th>
+            <th>City</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var freelancer in Model)
+        {
+            <tr>
+                <td>@freelancer.Id</td>
+                <td>@(freelancer.Customer?.FirstName ?? "No First Name") @(freelancer.Customer?.LastName ?? "")</td>
+                <td>@freelancer.Profession</td>
+                <td>@(freelancer.Customer?.City ?? "No City")</td>
+                <td>@(freelancer.Customer?.Email ?? "No Email")</td>
+            </tr>
+        }
+    </tbody>
+</table>

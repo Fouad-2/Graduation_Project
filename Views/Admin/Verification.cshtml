@@ -1,0 +1,62 @@
+﻿@using GradFinalProject.Models
+@model IEnumerable<Freelancer>
+
+@{
+    ViewData["Title"] = "Verification";
+    Layout = "_Layout";
+}
+
+
+<div id="verify">
+
+
+    <div class="recent-activities neumorphic">
+        <table id="verify-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Profession</th>
+                    <th>Phone Number</th>
+                    <th>Attachment</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int counter = 1;
+                    foreach (var freelancer in Model)
+                    {
+                        <tr data-id="@freelancer.Id">
+                            <td>@counter</td>
+                            <td>@((freelancer.Customer?.FirstName != null) ? $"{freelancer.Customer.FirstName} {freelancer.Customer.LastName}" : "N/A")
+                            <td>@freelancer.Profession</td>
+                            <td>@(freelancer.Customer?.PhoneNumber ?? "N/A")</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(freelancer.WorkSamplesFilePath))
+                                    {
+                                        <a class="btn btn-attachment" target="_blank" href="@Url.Content($"~/Uploads/{freelancer.WorkSamplesFilePath}")">
+                                            <i class="fas fa-paperclip"></i> View
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span>No File</span>
+                                    }
+                                </td>
+                            <td>
+                                <form method="post" asp-action="VerifyFreelancer" asp-route-id="@freelancer.Id" style="display:inline;">
+                                    <button class="btn btn-success" type="submit">Verify</button>
+                                </form>
+                                <form method="post" asp-action="RejectFreelancer" asp-route-id="@freelancer.Id" style="display:inline;">
+                                    <button class="btn btn-danger" type="submit">Reject</button>
+                                </form>
+                            </td>
+                        </tr>
+                        counter++;
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

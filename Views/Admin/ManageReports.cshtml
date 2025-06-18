@@ -1,0 +1,68 @@
+﻿@model IEnumerable<GradFinalProject.Models.Report>
+
+@{
+    ViewData["Title"] = "Manage Reports";
+    Layout = "_Layout"; 
+}
+
+<div  id="reports">
+    <div class="header">
+        <h1>Manage Reports</h1>
+        <div class="user-info">
+            <img src="image/admin.jpg" alt="User">
+            <span>Abdullah Omar</span>
+        </div>
+    </div>
+
+    <div class="">
+        <table id="reports-table">
+            <thead>
+                <tr>
+                    <th>Reported</th>
+                    <th>Description</th>
+                    <th>Attachment</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var report in Model)
+                {
+                    <tr data-id="@report.Id">
+                        <td>
+                            @(report.Freelancer?.Customer?.FirstName )
+                        </td>
+                        <td>@report.Reason</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(report.AttachmentFilePath))
+                            {
+                                <a href="@Url.Content(report.AttachmentFilePath)" target="_blank" class="btn btn-attachment">
+                                    <i class="fas fa-paperclip"></i> View
+                                </a>
+                            }
+                            else
+                            {
+                                <span>No Attachment</span>
+                            }
+                        </td>
+                        <td>
+                            @if (report.Freelancer?.IsVerified == true)
+                            {
+                                <form asp-action="DeactivateService" asp-controller="Admin" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@report.Freelancer.Id" />
+                                    <button type="submit" class="btn btn-warning"
+                                            onclick="return confirm('Are you sure you want to stop the service for @(report.Freelancer?.Customer?.FirstName + " " + report.Freelancer?.Customer?.LastName)?');">
+                                        Stop Service
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Service Stopped</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

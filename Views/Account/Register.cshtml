@@ -1,0 +1,147 @@
+﻿@model GradFinalProject.Models.Customer
+
+@{
+    ViewData["Title"] = "Register";
+}
+<head>
+    <link rel="stylesheet" href="/Account/RegiserStyle.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="register-container">
+        <!-- Left Side -->
+        <div class="brand-section">
+            <div class="brand-content">
+                <h1 class="brand-title">SANA'A</h1>
+                <p class="brand-subtitle">Jordanian market for professions and freelance work</p>
+                <div class="login-prompt">
+                    <p>Already have an account?</p>
+                    <a href="login.html" class="login-link">Login here</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="register-section">
+            <div class="register-card">
+                <h2 class="register-title">Create Your Account</h2>
+                @* new *@
+                <form id="registerForm" asp-controller="Account" asp-action="Register" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <!-- First Name and Last Name -->
+                    <div class="input-group half">
+                        <div class="input-wrapper">
+                            <label asp-for="FirstName" class="control-label">First Name</label>
+                            <input asp-for="FirstName" class="form-control" name="FirstName" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="input-wrapper">
+                            <label asp-for="LastName" class="control-label">Last Name</label>
+                            <input asp-for="LastName" name="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="input-group">
+                        <label asp-for="Gender" class="control-label">Gender</label>
+                        <select asp-for="Gender" name="Gender" class="form-control" id="gender" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+
+                    <!-- Birthday -->
+                    <div class="input-group">
+                        <label asp-for="BirthDate" class="control-label">Birthday</label>
+                        <input asp-for="BirthDate" name="BirthDate" class="form-control" type="date" required />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="input-group">
+                        <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
+                        <input asp-for="PhoneNumber" name="PhoneNumber" type="tel" id="phone" required pattern="\d{10}" title="Phone number must be 10 digits" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <!-- City -->
+                    <div class="input-group">
+                        <label asp-for="City" class="control-label">City</label>
+                        <select asp-for="City" name="City" class="form-control" required>
+                            <option value="" disabled selected>Select City</option>
+                            <option value="Amman">Amman</option>
+                            <option value="Zarqa">Zarqa</option>
+                            <option value="Irbid">Irbid</option>
+                            <option value="Aqaba">Aqaba</option>
+                            <option value="Mafraq">Mafraq</option>
+                            <option value="Salt">Salt</option>
+                            <option value="Madaba">Madaba</option>
+                            <option value="Jerash">Jerash</option>
+                            <option value="Karak">Karak</option>
+                            <option value="Tafilah">Tafilah</option>
+                            <option value="Ma'an">Ma'an</option>
+                            <option value="Ajloun">Ajloun</option>
+                            <!-- Add other cities -->
+                        </select>
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group">
+                        <label asp-for="Email" class="control-label">Email</label>
+                        <input asp-for="Email" name="Email" class="form-control" type="email" required />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group">
+                        <label asp-for="Password" class="control-label">Password</label>
+                        <input asp-for="Password" name="Password" class="form-control" type="password" required />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="input-group">
+                        <label asp-for="ConfirmPassword" class="control-label">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" name="ConfirmPassword" type="password" required />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <!-- Register Button -->
+                    <button type="submit" class="register-btn">Register</button>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Success Screen -->
+        <div class="success-screen" id="successScreen">
+            <h2>Success</h2>
+            <p>Registration has been completed successfully, welcome to Sanaa.</p>
+            <p>If you wish to offer your services through our website, you must first register as a freelancer.</p>
+            <div class="buttons">
+                <input type="submit" name="name" value="" />
+                <button class="freelancer" onclick="registerAsFreelancer()">Register as a Freelancer</button>
+                <button class="customer" onclick="continueAsCustomer()">Continue as a Customer</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+    </div>
+
+
+
+    <script src="~/account/registerjs.js"></script>
+</body>

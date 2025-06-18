@@ -1,0 +1,83 @@
+﻿@using GradFinalProject.Models
+@model GradFinalProject.ViewModels.ManageFreelancerDataViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Services - Sana'a</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="~/Service/style.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Top Navigation Bar -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <a asp-controller="Home" asp-action="Index" class="website-name">Sana'a</a>
+            </div>
+
+        </div>
+
+        <div class="page-header">
+            <h1><i class="fas fa-tasks"></i> Manage Services</h1>
+        </div>
+        <!-- Order List -->
+        <div class="section">
+            <h2><i class="fas fa-list"></i> Order List</h2>
+            <div id="order-list-container">
+                @foreach (var order in Model.Orders)
+                {
+                    <div class="order-item">
+                        <p><strong>Service:</strong> @order.Service?.Title</p>
+                        <p><strong>Customer:</strong> @order.Customer?.FirstName @order.Customer?.LastName</p>
+                        <p><strong>Status:</strong> @order.Status</p>
+
+                        @if (order.Status != "Accepted")
+                        {
+                            <form asp-action="AcceptOrder" asp-controller="Order" method="post" style="display:inline;">
+                                <input type="hidden" name="orderId" value="@order.Id" />
+                                <button type="submit" class="btn btn-success" style="background-color:green;color: white;">
+                                    Accept
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a href="https://wa.me/@(order.Customer?.PhoneNumber)"
+                               target="_blank"
+                               style="background-color: #25D366; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+
+
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+
+        <!-- Manage Services -->
+        <div class="section">
+            <h2><i class="fas fa-cogs"></i> Manage Your Services</h2>
+            <div id="manage-services-container">
+                @foreach (var service in Model.Services)
+                {
+                    <div class="service-item">
+                        <p><strong>Title:</strong> @service.Title</p>
+                        <p><strong>Description:</strong> @service.Description</p>
+                        <p><strong>Status:</strong> @(service.IsActive ? "Active" : "Inactive")</p>
+                        <div class="availability-status @(service.IsActive ? "active" : "deactive")" style="background-color:green;color:white">
+                            <a asp-controller="Freelancer" asp-action="ToggleServiceStatus" asp-route-id="@service.Id" class="btn btn-warning" style="text-decoration:none; color:white">Toggle Status</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @* <script src="~/Service/script.js"></script> *@
+ 
+</body>
+</html>

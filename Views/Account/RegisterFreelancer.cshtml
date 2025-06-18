@@ -1,0 +1,80 @@
+﻿@model GradFinalProject.Models.Freelancer
+
+@{
+    ViewData["Title"] = "RegisterFreelancer";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Registration</title>
+    <link rel="stylesheet" href="~/Account/FreelancerRegStyle.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Freelancer Registration</h1>
+@* new *@
+        <form asp-action ="RegisterFreelancer" method="post" id="freelancerForm">
+            <!-- Profession Dropdown -->
+            <div class="input-group">
+                <label asp-for="Profession" class="control-label">Profession</label>
+                <select asp-for="Profession" class="form-control" name="Profession" id="profession" required>
+                    <option value="" disabled selected>Select Profession</option>
+                    <option value="web-developer">Web Developer</option>
+                    <option value="graphic-designer">Graphic Designer</option>
+                    <option value="content-writer">Content Writer</option>
+                    <option value="photographer">Photographer</option>
+                    <option value="marketing-specialist">Marketing Specialist</option>
+                    <option value="video-editor">Video Editor</option>
+                    <option value="ui-ux-designer">UI/UX Designer</option>
+                    <option value="translator">Translator</option>
+                    <option value="accountant">Accountant</option>
+                    <option value="consultant">Consultant</option>
+                </select>
+            </div>
+            <!-- Address Input -->
+            <div class="input-group">
+                <label asp-for="Address" class="control-label">Address</label>
+                <input name="Address" type="text" id="address" required>
+            </div>
+            <!-- Description Textarea -->
+            <div class="input-group">
+                <label asp-for="Description" class="control-label">About Me (Description)</label>
+                <textarea name="Description" id="description" rows="5" required></textarea>
+            </div>
+
+            <!-- CV Upload (Optional) -->
+            <div class="input-group">
+                <label asp-for="CvFilePath" class="control-label">Curriculum Vitae (CV) - Optional</label>
+                <div class="file-upload">
+                    <input name="CvFilePath" type="file" id="cv" accept=".pdf,.doc,.docx">
+                    <label asp-for="CvFilePath" class="file-label">
+                        <span class="file-button">Choose File</span>
+                        <span class="file-name" id="cvName">No file chosen</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Samples of Work Upload (Optional) -->
+            <div class="input-group">
+                <label asp-for="WorkSamplesFilePath" class="control-label">Samples of Work - Optional</label>
+                <div class="file-upload">
+                    <input name="WorkSamplesFilePath" type="file" id="work-samples" accept=".pdf,.doc,.docx,.jpg,.png">
+                    <label asp-for="WorkSamplesFilePath" class="file-label">
+                        <span class="file-button">Choose File</span>
+                        <span class="file-name" id="workSamplesName">No file chosen</span>
+                    </label>
+                </div>
+                <div id="workSamplesPreview" class="file-preview"></div>
+            </div>
+
+            <!-- Confirm Button -->
+            <button type="submit" class="submit-btn">Confirm Registration</button>
+        </form>
+
+        </div>
+</body>
+</html>
+   

@@ -1,0 +1,215 @@
+﻿@using GradFinalProject.Models
+@model GradFinalProject.ViewModels.FreelancerDashboardViewModel
+
+
+@{
+    ViewData["Title"] = "Freelancer Dashboard";
+}
+
+<link rel="stylesheet" href="~/Freelancer/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<a href="d:\مشروع التخرج\gradfinalproject\gradfinalproject\views\freelancer\dashboard.cshtml">d:\مشروع التخرج\gradfinalproject\gradfinalproject\views\freelancer\dashboard.cshtml</a>
+<div class="container">
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <a href="/" class="website-name">Sana'a</a>
+        </div>
+        <div class="top-bar-right">
+        
+        </div>
+    </div>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <!-- Sidebar -->
+        <div class="profile-card">
+            <img src="@Url.Content(Model.Freelancer.ProfileImagePath)" class="profile-pic" alt="Freelancer Photo">
+            <h2>@Model.Freelancer.Customer?.FirstName  @Model.Freelancer.Customer?.LastName </h2>
+            <div class="profile-info">
+                <p class="profession">@Model.Freelancer.Profession</p>
+                <p><i class="fas fa-map-marker-alt"></i> <span>@Model.Freelancer.Address</span></p>
+                <p><i class="fas fa-birthday-cake"></i> <span>@(DateTime.Now.Year - Model.Freelancer.Customer.BirthDate.Year)</span> years old</p>
+            </div>
+
+            @if (Model.Freelancer.IsVerified)
+            {
+                <div class="action-buttons">
+                    <a asp-controller="Freelancer" asp-action="UpdateProfile" asp-route-id="@Model.Freelancer.Id" class="btn btn-primary">
+                        <i class="fas fa-tasks"></i> Edit Profile
+                    </a>
+                    <button class="btn btn-primary" onclick="openModal('post-service-modal')">
+                        <i class="fas fa-plus-circle"></i> Post New Service
+                    </button>
+                    <a asp-controller="Freelancer" asp-action="ManageService" asp-route-id="@Model.Freelancer.Id" class="btn btn-primary">
+                        <i class="fas fa-tasks"></i> Manage Services
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-info-circle"></i>  Your account is currently restricted. You’ll be able to manage your profile and services once the restriction is lifted..
+                </div>
+            }
+
+
+            <div id="post-service-modal" class="modal">
+                <div class="modal-content">
+                    <form id="post-service-form" asp-controller="Service" asp-action="Create" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label asp-for="Service.Title">Name of the Service:</label>
+                            <input asp-for="Service.Title" name="Title" class="form-control" placeholder="Enter service name" />
+                            <span asp-validation-for="Service.Title" class="text-danger"></span>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label asp-for="Service.CategoryId">Category:</label>
+                            <select asp-for="Service.CategoryId" name="CategoryId" class="form-control">
+                                <option>Select a Category</option>
+                                @foreach (var category in ViewBag.categories as List<Category>)
+                                {
+                                    <option value="@category.Id">@category.CategoryName</option>
+                                }
+                               </select>
+                            <span asp-validation-for="Freelancer.CustomerId" class="text-danger"></span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label asp-for="Service.Description">Service Description:</label>
+                            <textarea asp-for="Service.Description" name="Description" class="form-control" rows="4" placeholder="Describe your service"></textarea>
+                            <span asp-validation-for="Service.Description" class="text-danger"></span>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="form-group">
+                            <label asp-for="Service.Price">Price ($):</label>
+                            <input asp-for="Service.Price" name="Price" class="form-control" placeholder="Enter price" />
+                            <span asp-validation-for="Service.Price" class="text-danger"></span>
+                        </div>
+
+                        <!-- Estimation Time -->
+                        <div class="form-group">
+                            <label asp-for="Service.EstimationTime">Estimation Time:</label>
+                            <input asp-for="Service.EstimationTime" name="EstimationTime" class="form-control" placeholder="e.g., 2 weeks" />
+                            <span asp-validation-for="Service.EstimationTime" class="text-danger"></span>
+                        </div>
+
+                        <!-- Required Tools -->
+                        <div class="form-group">
+                            <label asp-for="Service.RequiredTools">Required Tools:</label>
+                            <input asp-for="Service.RequiredTools" name="RequiredTools" class="form-control" placeholder="e.g., Photoshop, Illustrator" />
+                            <span asp-validation-for="Service.RequiredTools" class="text-danger"></span>
+                        </div>
+
+                        <!-- Availability -->
+                        <div class="form-group">
+                            <label asp-for="Service.IsActive">Availability:</label>
+                            <select asp-for="Service.IsActive" name="IsActive" class="form-control">
+                                <option value="true">Active</option>
+                                <option value="false">Deactive</option>
+                            </select>
+                            <span asp-validation-for="Service.IsActive" class="text-danger"></span>
+                        </div>
+
+                        <!-- Attachment -->
+                        <div class="form-group">
+                            <label for="service-attachment">Attachment (Picture or Document):</label>
+                            <input type="file" name="serviceImage" class="form-control" accept="image/*,.pdf,.doc,.docx" />
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary">Post Service</button>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-grid">
+            <!-- Contact -->
+            <article class="info-card communication-card">
+                <h3><i class="fas fa-address-card"></i> About Me </h3>
+                <div class="contact-info">
+                    <p><span style="position:relative; top: 15px">@Model.Freelancer.Description</span></p>
+                </div>
+
+@*                 <!-- About Me -->
+                <div class="about-section">
+                    <h3><i class="fas fa-user"></i> About Me</h3>
+                    <div class="editable-description">
+                        <p>@Model.Freelancer.Description</p>
+                        <button class="btn btn-primary" onclick="openModal('edit-description-modal')">
+                            <i class="fas fa-edit"></i> Edit Description
+                        </button>
+                    </div>
+                </div> *@
+            </article>
+
+            <!-- My Services -->
+            <div class="info-card">
+                <h3><i class="fas fa-briefcase"></i> My Services</h3>
+                <div id="services-list">
+                    @foreach (var service in Model.Services)
+                    {
+                        <div class="service-item">
+                            <span>@service.Title</span>
+                            <div class="service-meta">
+                                <span>$@service.Price</span>
+                                <small>@(service.Orders?.Count ?? 0) buyers</small>
+                                <div class="availability-status @(service.IsActive ? "active" : "deactive")">
+                                    @service.IsActive
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Statistics -->
+            <div class="info-card stats-card">
+                <h3><i class="fas fa-chart-line"></i> Statistics</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-star"></i></div>
+                        <div class="stat-content">
+                            @* <h4>@(Model.Services.Any() ? Model.Services.Average(s => s.Ratings.Average(r => r.Stars)).ToString("0.0") : "N/A")/5</h4> *@
+                            <p>Average Rating</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-content">
+                            <h4>@Model.Orders?.Count</h4>
+                            <p>Completed Projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+@*             <!-- Testimonials -->
+            <div class="testimonials">
+                <h3><i class="fas fa-comments"></i> Client Reviews</h3>
+                <div class="testimonial-carousel">
+                    <div class="testimonial-item active">
+                        <div class="rating">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>"Great service and communication!"</p>
+                        <small>- Client</small>
+                    </div>
+                </div>
+            </div> *@
+        </div>
+    </section>
+</div>
+<script src="~/Freelancer/script.js"></script>

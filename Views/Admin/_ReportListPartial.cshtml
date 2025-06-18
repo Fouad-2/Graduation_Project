@@ -1,0 +1,27 @@
+﻿@model IEnumerable<GradFinalProject.Models.Report>
+
+<table class="table table-bordered mt-4">
+    <thead class="table-light">
+        <tr>
+            <th>ID</th>
+            <th>Sender</th>
+            <th>Reported</th>
+            <th>Status</th>
+            <th>Reason</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var report in Model)
+        {
+            <tr>
+                <td>@report.Id</td>
+                <td>@report.Customer.FirstName @report.Customer.LastName</td>
+                <td>@report.Service.Title</td>
+                <td>@report.Status</td>
+                <td>@report.Reason</td>
+                <td>@report.CreatedAt.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

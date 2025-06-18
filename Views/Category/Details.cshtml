@@ -1,0 +1,84 @@
+﻿@model GradFinalProject.ViewModels.CategoryDetailsViewModel
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sana'a - Freelance Platform</title>
+    <link rel="stylesheet" href="~/Category/post.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="nav-container">
+            <a href="~/Home/Index" class="logo">Sana'a</a>
+            <div class="auth-buttons">
+                <button class="currency-btn" id="currencyToggle">USD → JOD</button>
+                <button class="login-btn" onclick="window.location.href='/Account/Login'">Login</button>
+                <button class="register-btn" onclick="window.location.href='/Account/Register'">Register</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sorting Controls -->
+    <div class="sort-container">
+        <select id="sortOptions">
+            <option value="rating_high">Highest Rating</option>
+            <option value="rating_low">Lowest Rating</option>
+            <option value="price_high">Highest Price</option>
+            <option value="price_low">Lowest Price</option>
+        </select>
+    </div>
+
+    <!-- Posts Grid -->
+    <main class="posts-container">
+        @foreach (var service in Model.Services)
+        {
+            <a href="/Service/Details/@service.Id" class="post-card" data-rating="@service.Rating" data-price="@service.Price">
+                <img src="@service.ImageUrl" alt="@service.Title" class="post-image">
+                <div class="post-details">
+                    <h3>@service.Title</h3>
+                    <div class="price-rating">
+                        <span class="price">$@service.Price</span>
+                        <div class="rating">⭐ @service.Rating</div>
+                    </div>
+                    <div class="provider-info">
+                        <img src="@service.ProviderImage" alt="@service.ProviderName" class="provider-image">
+                        <span>@service.ProviderName</span>
+                    </div>
+                </div>
+            </a>
+        }
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@sanaa.com</p>
+                <p>Phone: +1 234 567 890</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/" class="fab fa-facebook" target="_blank" rel="noopener noreferrer"></a>
+                    <a href="https://x.com" class="fab fa-twitter" target="_blank" rel="noopener noreferrer"></a>
+                    <a href="https://www.instagram.com/" class="fab fa-instagram" target="_blank" rel="noopener noreferrer"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Sana'a. All rights reserved</p>
+        </div>
+    </footer>
+
+    <script src="~/Category/post.js"></script>
+</body>
+</html>

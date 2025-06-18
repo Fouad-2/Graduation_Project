@@ -1,0 +1,71 @@
+﻿@model GradFinalProject.Models.Report
+
+@{
+    ViewData["Title"] = "Report Service";
+}
+
+<link rel="stylesheet" href="~/Service/servicestyle.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+<nav>
+    <div class="logo">
+        <a asp-controller="Home" asp-action="Index" class="logo">Sana'a</a>
+    </div>
+    <div class="auth-links">
+        <a asp-controller="Service" asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Service
+        </a>
+    </div>
+</nav>
+
+<div class="report-container">
+    <div class="report-header">
+        <h1><i class="fas fa-flag"></i> Report Service</h1>
+        <div class="service-preview">
+            <img src="~/images/logo1.png" alt="Service Preview" />
+            <div class="service-info">
+                <h2>Logo Design</h2>
+                <p>by @Model.Freelancer.Customer.FirstName</p> 
+            </div>
+        </div>
+    </div>
+
+    <form asp-action="ReportService" method="post" enctype="multipart/form-data" id="report-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- Reason -->
+        <div class="form-group">
+            <label asp-for="Reason">Detailed Explanation (required)</label>
+            <textarea asp-for="Reason" name="Reason" class="form-control" placeholder="Please provide as much detail as possible..." required></textarea>
+            <span asp-validation-for="Reason" class="text-danger"></span>
+        </div>
+
+        <!-- Attachment -->
+        <div class="form-group">
+            <label asp-for="AttachmentFilePath">Attachment (optional)</label>
+            <input asp-for="AttachmentFilePath" name="AttachmentFilePath" type="file" class="form-control" />
+            <small>You can upload screenshots or other supporting documents</small>
+            <span asp-validation-for="AttachmentFilePath" class="text-danger"></span>
+        </div>
+
+        <!-- Hidden or preset fields -->
+        <input type="hidden" asp-for="CustomerId" />
+        <input type="hidden" asp-for="ServiceId" value="@Model.Service.Id" />
+        <input type="hidden" asp-for="FreelancerId" />
+        <input type="hidden" asp-for="Status" value="Pending" />
+        <input type="hidden" asp-for="CreatedAt" value="@DateTime.Now" />
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit Report</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+
+        <div class="report-notice">
+            <i class="fas fa-info-circle"></i> Your report will be reviewed by our team within 24 hours.
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

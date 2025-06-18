@@ -1,0 +1,72 @@
+﻿@model IEnumerable<GradFinalProject.Models.Category>
+@{
+    ViewData["Title"] = "All Categories";
+    Layout = "_NavLayout";
+}
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sana'a - All Categories</title>
+    <link rel="stylesheet" href="~/Category/cat.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+
+
+    <!-- Categories Grid -->
+    <main class="categories-container">
+        <h1>Explore All Categories</h1>
+
+        <div class="categories-grid">
+            @foreach (var category in Model)
+            {
+                <a asp-controller="Category" asp-action="Details" asp-route-id="@category.Id" class="category-card">
+                    <img src="@category.ImageUrl" alt="@category.CategoryName" />
+                    <div class="category-content">
+                        <h2>@category.CategoryName</h2>
+                        <p>@category.Description</p>
+                    </div>
+                </a>
+
+                @if (category.Services != null)
+                {
+                    foreach (var service in category.Services)
+                    {
+                        <a asp-controller="Service" asp-action="Details" asp-route-id="@service.Id" class="service-link">
+                            <p>@service.Title</p>
+                        </a>
+                    }
+                }
+            }
+
+        </div>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@sanaa.com</p>
+                <p>Phone: +1 234 567 890</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/" class="fab fa-facebook" target="_blank"></a>
+                    <a href="https://www.x.com" class="fab fa-twitter" target="_blank"></a>
+                    <a href="https://www.instagram.com/" class="fab fa-instagram" target="_blank"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Sana'a. All rights reserved</p>
+        </div>
+    </footer>
+</body>
+</html>

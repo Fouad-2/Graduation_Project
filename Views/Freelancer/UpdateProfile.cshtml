@@ -1,0 +1,71 @@
+﻿@model GradFinalProject.Models.Freelancer
+
+@{
+    ViewData["Title"] = "Edit Profile - Sana'a";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<link rel="stylesheet" href="~/Service/style.css" />
+
+<div class="container">
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <a asp-controller="Home" asp-action="Index" class="website-name">Sana'a</a>
+        </div>
+        <div class="top-bar-right">
+            <a asp-action="Dashboard" asp-route-id="@Model.Id" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Profile
+            </a>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <h1><i class="fas fa-user-edit"></i> Edit Profile</h1>
+    </div>
+
+    <div class="form-container">
+        <form asp-controller="Freelancer" asp-action="UpdateProfile" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="FreelancerId" value="@Model.Id" />
+
+            <!-- Profile Picture -->
+            <div class="form-group">
+                <label for="profile-picture">Profile Picture:</label>
+                <input type="file" name="ProfileImagePath" id="profile-picture" accept="image/*" onchange="previewProfilePicture(event)">
+                <div class="image-preview">
+                    <img id="profile-picture-preview" src="@(Model.ProfileImagePath ?? "https://placehold.co/200x200")" alt="Profile Picture Preview" />
+                </div>
+            </div> *
+
+            <!-- Location -->
+            <div class="form-group">
+                <label for="profile-location">Location:</label>
+                <input type="text" name="Address" id="profile-location" value="@Model.Address" placeholder="Enter your location" required />
+            </div>
+
+            <!-- About Me -->
+            <div class="form-group">
+                <label for="profile-description">About Me:</label>
+                <textarea name="Description" id="profile-description" rows="5" placeholder="Tell clients about yourself and your skills" required>@Model.Description</textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a asp-action="Dashboard" asp-route-id="@Model.Id" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function previewProfilePicture(event) {
+        const input = event.target;
+        const preview = document.getElementById('profile-picture-preview');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => preview.src = e.target.result;
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>

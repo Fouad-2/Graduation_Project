@@ -1,0 +1,141 @@
+﻿@model GradFinalProject.ViewModels.AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+    <html>
+    <head>
+    <link rel="stylesheet" href="~/Admin/ad.css" />
+    </head>
+    <body>
+    <div class="page active" id="dashboard">
+
+
+        <!-- Analytics Cards -->
+        <div class="analytics-cards">
+            <div id="cardTotalCustomers" class="card neumorphic" style="cursor:pointer;">
+                <div class="card-header">
+                    <h3>Total Customers</h3>
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="card-body">
+                    <h2>@Model.TotalCustomers</h2>
+                    <p>All registered customers</p>
+                </div>
+            </div>
+
+            <div id="cardTotalFreelancers" class="card neumorphic mt-3" style="cursor:pointer;">
+                <div class="card-header">
+                    <h3>Total Freelancers</h3>
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="card-body">
+                    <h2>@Model.TotalFreelancers</h2>
+                    <p>All registered freelancers</p>
+                </div>
+            </div>
+            <div id="cardTotalServices" class="card neumorphic" style="cursor:pointer;">
+                <div class="card-header">
+                    <h3>Total Services</h3>
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="card-body">
+                    <h2>@Model.TotalServices</h2>
+                    <p>All available services</p>
+                </div>
+            </div>
+            <div id="cardTotalReports" class="card neumorphic" style="cursor:pointer;">
+                <div class="card-header">
+                    <h3>Total Reports</h3>
+                    <i class="fas fa-flag"></i>
+                </div>
+                <div class="card-body">
+                    <h2>@Model.TotalReports</h2>
+                    <p>All submitted reports</p>
+                </div>
+            </div>
+        </div>
+        <div id="dynamicContent" class="mt-4"></div>
+        <div id="freelancerContent" class="mt-4"></div>
+        <div id="reportsContent" class="mt-4"></div>
+        <div id="servicesContent" class="mt-4"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            
+            function clearAllContents() {
+                document.getElementById("dynamicContent").innerHTML = "";
+                document.getElementById("freelancerContent").innerHTML = "";
+                document.getElementById("reportsContent").innerHTML = "";
+                document.getElementById("servicesContent").innerHTML = "";
+            }
+
+
+            document.getElementById("cardTotalCustomers").addEventListener("click", function () {
+                clearAllContents(); 
+                fetch("/Admin/LoadCustomersList")
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("dynamicContent").innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error("Error loading customers list:", error);
+                    });
+            });
+
+ 
+            document.getElementById("cardTotalFreelancers").addEventListener("click", function () {
+                clearAllContents(); 
+                fetch("/Admin/LoadFreelancers")
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("freelancerContent").innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error("Error loading freelancers:", error);
+                    });
+            });
+
+            document.getElementById("cardTotalReports").addEventListener("click", function () {
+                clearAllContents();  
+                fetch("/Admin/LoadReports")
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("reportsContent").innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error("Error loading reports:", error);
+                    });
+            });
+
+
+            document.getElementById("cardTotalServices").addEventListener("click", function () {
+                clearAllContents();  
+                fetch("/Admin/LoadServices")
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById("servicesContent").innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error("Error loading services:", error);
+                    });
+            });
+        });
+
+     
+        function hideCustomersTable() {
+            const container = document.getElementById('customersTableContainer');
+            if (container) {
+                container.style.display = 'none';
+            }
+        }
+    </script>
+    </body>
+    </html>
+
+
+
+

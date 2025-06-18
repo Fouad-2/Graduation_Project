@@ -1,0 +1,48 @@
+﻿@model GradFinalProject.ViewModels.AdminLoginViewModel
+
+@{
+    ViewData["Title"] = "Admin Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/Admin/styles.css" />
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Sana'a Admin Portal</h1>
+            <p>Sign in to access the dashboard</p>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="Login" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input asp-for="Username" name="Username" class="form-control" placeholder="Enter your username" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input asp-for="Password" name="Password" type="password" class="form-control" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+
+        </form>
+    </div>
+
+    <script src="~/Admin/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "ChooseRole";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sana'a - Choose Your Path</title>
+    <!-- CSS Links -->
+    <link rel="stylesheet" href="~/Account/choosepage.css" />
+    <link rel="stylesheet" href="RegiserStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Choose Page Specific CSS -->
+
+</head>
+<body>
+    <div class="register-container choose-path-container">
+        <!-- Success Content -->
+        <div class="success-screen" id="successScreen" style="display: flex; position: relative;">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Registration Successful!</h2>
+            <p class="path-description">Welcome to Sana'a, the Jordanian marketplace for professions and freelance work.</p>
+            <p class="path-description">Please choose how you'd like to proceed:</p>
+
+            <!-- Path Options -->
+            <div class="path-options">
+                <div class="path-card freelancer" onclick="registerAsFreelancer()">
+                    <div class="path-title">
+                        <i class="fas fa-user-tie"></i>
+                        <span>Register as Freelancer</span>
+                    </div>
+                    <p class="path-details">Offer your services and skills to clients across Jordan</p>
+                </div>
+
+                <div class="path-card customer" onclick="continueAsCustomer()">
+                    <div class="path-title">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Continue as Customer</span>
+                    </div>
+                    <p class="path-details">Browse and hire skilled professionals for your needs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Redirect Functions
+        function registerAsFreelancer() {
+            window.location.href = '/Account/RegisterFreelancer';
+        }
+
+        function continueAsCustomer() {
+            window.location.href = '/Home/Index';
+        }
+
+        // Add animation delay for elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.path-card, .success-icon');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
+
