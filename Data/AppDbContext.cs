@@ -23,34 +23,34 @@ namespace GradFinalProject.Data
     {
         base.OnModelCreating(modelBuilder);
 
-        // علاقة Customer - Freelancer (One-to-One)
+        //  Customer - Freelancer (One-to-One)
         modelBuilder.Entity<Customer>()
             .HasOne(c => c.Freelancer)
             .WithOne(f => f.Customer)
             .HasForeignKey<Freelancer>(f => f.CustomerId);
 
-        // علاقة Order -> Customer (Many-to-One)
+        //  Order -> Customer (Many-to-One)
         modelBuilder.Entity<Order>()
             .HasOne(o => o.Customer)
             .WithMany(c => c.Orders)
             .HasForeignKey(o => o.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            // علاقة Order -> Freelancer (Many-to-One)
+            //  Order -> Freelancer (Many-to-One)
             modelBuilder.Entity<Order>()
             .HasOne(o => o.Freelancer)
             .WithMany(f => f.Orders)
             .HasForeignKey(o => o.FreelancerId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            // علاقة Service -> Freelancer (Many-to-One)
+            //  Service -> Freelancer (Many-to-One)
             modelBuilder.Entity<Service>()
             .HasOne(s => s.Freelancer)
             .WithMany(f => f.Services)
             .HasForeignKey(s => s.FreelancerId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            // علاقة Comment -> Customer & Service
+            //  Comment -> Customer & Service
             modelBuilder.Entity<Comment>()
             .HasOne(c => c.Customer)
             .WithMany(cu => cu.Comments)
@@ -63,28 +63,28 @@ namespace GradFinalProject.Data
             .HasForeignKey(c => c.ServiceId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            // علاقة Report -> Customer
+            //  Report -> Customer
             modelBuilder.Entity<Report>()
             .HasOne(r => r.Customer)
             .WithMany(c => c.Reports)
             .HasForeignKey(r => r.CustomerId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            // علاقة Report -> Freelancer (Optional)
+            //  Report -> Freelancer (Optional)
             modelBuilder.Entity<Report>()
             .HasOne(r => r.Freelancer)
             .WithMany(f => f.Reports)
             .HasForeignKey(r => r.FreelancerId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // علاقة Report -> Service (Optional)
+        //  Report -> Service (Optional)
         modelBuilder.Entity<Report>()
             .HasOne(r => r.Service)
             .WithMany(s => s.Reports)
             .HasForeignKey(r => r.ServiceId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // علاقة Payment -> Order (One-to-One)
+        //  Payment -> Order (One-to-One)
         modelBuilder.Entity<Payment>()
             .HasOne(p => p.Order)
             .WithOne(o => o.Payment)
